@@ -3,13 +3,16 @@ node() {
     
     dir('first') {
         def vars = checkout scm
-        url = sh(returnStdout: true, script: 'git config remote.Origin.url').trim()
         dumpEnv('first', vars)
     }
+
+    url = sh(returnStdout: true, script: 'git config remote.Origin.url').trim()
+
     dir('second') {
-        def vars = git url: url, branch: 'master'
+        def vars = git url: url, branch: 'other'
         dumpEnv('second', vars)
     }
+
     dir('third') {
         def vars = checkout scm
         dumpEnv('third', vars)
