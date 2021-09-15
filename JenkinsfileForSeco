@@ -3,7 +3,7 @@ node() {
         def vars = checkout scm
         def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
         echo "first, url is: ${url}"
-        def branch = sh('git rev-parse --abbrev-ref HEAD').trim()
+        def branch = sh(eturnStdout: true, script:'git rev-parse --abbrev-ref HEAD').trim()
         echo "first, branch is: ${branch}"
 
         dumpEnv('first', vars)
@@ -13,7 +13,7 @@ node() {
         def vars = git url: 'git@github.com:MRamonLeon/git-test.git', branch: 'other'
         def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
         echo "second url is: ${url}"
-        def branch = sh('git rev-parse --abbrev-ref HEAD').trim()
+        def branch = sh(eturnStdout: true, script:'git rev-parse --abbrev-ref HEAD').trim()
         echo "first, branch is: ${branch}"
 
         dumpEnv('second', vars)
@@ -25,7 +25,7 @@ node() {
         def vars = checkout scm
         def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
         echo "third url is: ${url}"
-        def branch = sh('git rev-parse --abbrev-ref HEAD').trim()
+        def branch = sh(eturnStdout: true, script:'git rev-parse --abbrev-ref HEAD').trim()
         echo "first, branch is: ${branch}"
 
         dumpEnv('third', vars)
