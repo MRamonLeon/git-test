@@ -1,0 +1,21 @@
+node() {
+    def url
+    
+    dir('first') {
+        def vars = checkout scm
+        url = sh(returnStdout: true, script: 'git config remote.Origin.url').trim()
+        dumpEnv('first', vars)
+    }
+    dir('second') {
+        def vars = git url: url, branch: 'master'
+        dumpEnv('second', vars)
+    }
+    dir('third') {
+        def vars = checkout scm
+        dumpEnv('third', vars)
+    }
+}
+
+def dumpEnv(String prefix, Map env) {
+    env.each { key, value -> echo("${prefix}: '${key}' = '${value}'") }
+}
