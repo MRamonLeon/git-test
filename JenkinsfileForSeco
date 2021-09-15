@@ -1,14 +1,11 @@
 node() {
-    def url
-    
     dir('first') {
         def vars = checkout scm
         dumpEnv('first', vars)
-            url = sh(returnStdout: true, script: 'git config remote.Origin.url').trim()
     }
 
     dir('second') {
-        def vars = git url: url, branch: 'other'
+        def vars = git url: 'git@github.com:MRamonLeon/git-test.git', branch: 'other'
         dumpEnv('second', vars)
     }
 
