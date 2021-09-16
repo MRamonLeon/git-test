@@ -1,14 +1,16 @@
 node() {
+    echo "The default SCM is git@github.com:MRamonLeon/git-test.git"
     dir('first') {
         def vars = checkout scm
+
+        dumpEnv('first', vars)
+
         def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
         echo "first, url is: ${url}"
         def branch = sh(returnStdout: true, script:'git rev-parse --abbrev-ref HEAD').trim()
         echo "first, branch is: ${branch}"
-
-        dumpEnv('first', vars)
     }
-
+/*
     dir('second') {
         def vars = git url: 'git@github.com:MRamonLeon/git-test.git', branch: 'other'
         def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
@@ -20,28 +22,29 @@ node() {
 
         
     }
-
+*/
     dir('second and a half') {
         def vars = git url: 'git@github.com:jenkinsci/git-plugin.git', branch: '1.x'
+
+        dumpEnv('second halfcd ..', vars)
+
         def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
-        echo "second url is: ${url}"
+        echo "second half url is: ${url}"
         def branch = sh(returnStdout: true, script:'git rev-parse --abbrev-ref HEAD').trim()
-        echo "second, branch is: ${branch}"
-
-        dumpEnv('second', vars)
-
+        echo "secondhalf branch is: ${branch}"
         
     }
 
 
     dir('third') {
         def vars = checkout scm
+        
+        dumpEnv('third', vars)
+
         def url = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
         echo "third url is: ${url}"
         def branch = sh(returnStdout: true, script:'git rev-parse --abbrev-ref HEAD').trim()
         echo "third, branch is: ${branch}"
-
-        dumpEnv('third', vars)
     }
 }
 
